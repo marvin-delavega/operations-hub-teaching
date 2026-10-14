@@ -1,6 +1,4 @@
 {
-  "model": "opus",
-  "effortLevel": "xhigh",
   "permissions": {
     "allow": [
       "PowerShell(New-Item -ItemType Directory -Force -Path \"d:\\\\Github\\\\GreatwallScanningApp\\\\kernel\\\\ui\\\\lib\")",
@@ -16,6 +14,7 @@
       "Bash(npm run *)"
     ]
   },
+  "model": "opus",
   "hooks": {
     "UserPromptSubmit": [
       {
@@ -28,5 +27,9 @@
         ]
       }
     ]
-  }
+  },
+  "effortLevel": "xhigh",
+  "disabledMcpjsonServers": [
+    "serena"
+  ]
 }
