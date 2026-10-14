@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Next.js: dev",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run dev",
+      "cwd": "${workspaceFolder}",
+      "terminal": {
+        "name": "Next.js Dev",
+        "shellPath": "C:\\Windows\\System32\\cmd.exe"
+      },
+      "serverReadyAction": {
+        "action": "openSimpleBrowser",
+        "pattern": "- Local:.*?(http://localhost:\\d+)",
+        "uriFormat": "%s"
+      }                        
+    }
+  ]
+}

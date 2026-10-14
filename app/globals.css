@@ -1,0 +1,256 @@
+@import "tailwindcss";
+
+/* `dark:` utilities follow the next-themes `.dark` class, not the OS
+   prefers-color-scheme media query — keeps utility variants in sync with the
+   class-based token switching below (otherwise `dark:` would fire on OS dark
+   mode even when the app theme is set to Light). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ----------------------------------------------------------------------------
+   Design tokens — defined once, consumed everywhere via semantic utilities.
+   Light values live on :root; dark values on .dark (next-themes class strategy).
+   Domain status tokens (critical/success/warning/incoming) are saturated colors
+   consumed as text/border directly and as tinted surfaces via the /opacity
+   modifier (e.g. bg-critical/10). primary doubles as informational blue.
+---------------------------------------------------------------------------- */
+
+:root {
+  --radius: 0.625rem;
+
+  --background: #ffffff;
+  --foreground: #18181b;
+
+  --card: #ffffff;
+  --card-foreground: #18181b;
+
+  --popover: #ffffff;
+  --popover-foreground: #18181b;
+
+  --primary: #2563eb;
+  --primary-foreground: #ffffff;
+
+  --secondary: #f4f4f5;
+  --secondary-foreground: #18181b;
+
+  --muted: #f4f4f5;
+  --muted-foreground: #5b5b66;
+
+  --accent: #eff6ff;
+  --accent-foreground: #1d4ed8;
+
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+
+  --border: #e4e4e7;
+  --input: #d4d4d8;
+  --ring: #3b82f6;
+
+  --critical: #dc2626;
+  --critical-foreground: #ffffff;
+
+  --success: #15803d;
+  --success-foreground: #ffffff;
+
+  --warning: #b45309;
+  --warning-foreground: #ffffff;
+
+  --incoming: #047857;
+  --incoming-foreground: #ffffff;
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #fafafa;
+
+  --card: #18181b;
+  --card-foreground: #fafafa;
+
+  --popover: #18181b;
+  --popover-foreground: #fafafa;
+
+  --primary: #3b82f6;
+  --primary-foreground: #0a0a0a;
+
+  --secondary: #27272a;
+  --secondary-foreground: #fafafa;
+
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+
+  --accent: #172554;
+  --accent-foreground: #93c5fd;
+
+  --destructive: #ef4444;
+  --destructive-foreground: #fafafa;
+
+  --border: #27272a;
+  --input: #3f3f46;
+  --ring: #60a5fa;
+
+  --critical: #f87171;
+  --critical-foreground: #0a0a0a;
+
+  --success: #4ade80;
+  --success-foreground: #0a0a0a;
+
+  --warning: #fbbf24;
+  --warning-foreground: #0a0a0a;
+
+  --incoming: #34d399;
+  --incoming-foreground: #0a0a0a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-critical: var(--critical);
+  --color-critical-foreground: var(--critical-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-incoming: var(--incoming);
+  --color-incoming-foreground: var(--incoming-foreground);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  }
+  /* Pin the native date-picker icon to the right edge of the field.
+     Recent Chrome ignores flex/margin tricks on the date input's shadow
+     pseudo-elements, so position the indicator absolutely against the
+     (relative) host instead. */
+  input[type="date"] {
+    position: relative;
+  }
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0;
+  }
+}
+
+/* Named type scale — use these role classes instead of free-picking sizes. */
+@layer components {
+  .type-page-title {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .type-section-title {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 500;
+  }
+  .type-body {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  .type-label {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 500;
+  }
+  .type-caption {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: var(--muted-foreground);
+  }
+  .type-data {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Dialog enter/exit animations, driven by Radix data-state. Radix delays unmount
+   until these finish, so the close animation plays. The prefers-reduced-motion
+   guard below collapses the durations, so no extra gating is needed here. */
+@keyframes dialog-overlay-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes dialog-overlay-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes dialog-content-in {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.96); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+@keyframes dialog-content-out {
+  from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  to { opacity: 0; transform: translate(-50%, -50%) scale(0.96); }
+}
+
+.dialog-overlay[data-state="open"] { animation: dialog-overlay-in 150ms ease-out; }
+.dialog-overlay[data-state="closed"] { animation: dialog-overlay-out 120ms ease-in; }
+.dialog-content[data-state="open"] { animation: dialog-content-in 150ms ease-out; }
+.dialog-content[data-state="closed"] { animation: dialog-content-out 120ms ease-in; }
+
+/* Bottom slide-up sheet (shared Sheet primitive), same Radix data-state pattern. */
+@keyframes sheet-content-in {
+  from { opacity: 0; transform: translateY(100%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes sheet-content-out {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(100%); }
+}
+.sheet-content[data-state="open"] { animation: sheet-content-in 200ms ease-out; }
+.sheet-content[data-state="closed"] { animation: sheet-content-out 160ms ease-in; }
+
+/* Background blob animations for the login screen. */
+@keyframes blob-drift {
+  0%, 100% { transform: translate(0%, 0%) scale(1); }
+  25%       { transform: translate(4%, -3%) scale(1.04); }
+  50%       { transform: translate(-3%, 4%) scale(0.96); }
+  75%       { transform: translate(3%, 2%) scale(1.02); }
+}
+@keyframes blob-drift-alt {
+  0%, 100% { transform: translate(0%, 0%) scale(1); }
+  25%       { transform: translate(-5%, 2%) scale(0.95); }
+  50%       { transform: translate(4%, -4%) scale(1.06); }
+  75%       { transform: translate(-2%, 3%) scale(0.98); }
+}
+
+/* Motion is gated behind prefers-reduced-motion via the .motion-safe variant in
+   components; this is the global guard for any token-level animation. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
